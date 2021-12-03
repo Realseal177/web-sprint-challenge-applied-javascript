@@ -9,21 +9,15 @@ const Tabs = (topics) => {
   // The tags used, the hierarchy of elements and their attributes must match the provided markup!
   // The text inside elements will be set using their `textContent` property (NOT `innerText`).
   const divTopics = document.createElement('div');
-  const topicOne = document.createElement('tab');
-  const topicTwo = document.createElement('tab');
-  const topicThree = document.createElement('tab');
-
-  divTopics.appendChild(topicOne);
-  divTopics.appendChild(topicTwo);
-  divTopics.appendChild(topicThree);
 
   divTopics.classList.add('topics');
-  topicOne.classList.add('tab');
-  topicTwo.classList.add('tab');
-  topicThree.classList.add('tab');
 
-
-
+  for (let i = 0; i < topics.length; i++) {
+    const divTabs = document.createElement('div');
+    divTabs.classList.add('tab');
+    divTabs.textContent = topics[i];
+    divTopics.appendChild(divTabs);
+  }
   // // <div class="topics">
   // //   <div class="tab">javascript</div>
   // //   <div class="tab">bootstrap</div>
@@ -37,7 +31,7 @@ const tabsAppender = (selector) => {
   axios.get('http://localhost:5000/api/topics')
     .then(resp => {
       console.log(resp.data.topics);
-      const array = rest.data.topics;
+      const array = resp.data.topics;
       const entryPoint = document.querySelector(selector)
       entryPoint.appendChild(Tabs(array))
     })
@@ -50,9 +44,6 @@ const tabsAppender = (selector) => {
   // // It should obtain topics from this endpoint: `http://localhost:5000/api/topics` (test it with a console.log!).
   // // Find the array of topics inside the response, and create the tabs using the Tabs component.
   // // Append the tabs to the element in the DOM that matches the selector passed to the function.
-  const newTabs = Tabs();
-  document.querySelector(selector).appendChild(newTabs);
-
 }
 
 export { Tabs, tabsAppender }

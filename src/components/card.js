@@ -6,7 +6,27 @@ const Card = (article) => {
   // The tags used, the hierarchy of elements and their attributes must match the provided markup exactly!
   // The text inside elements will be set using their `textContent` property (NOT `innerText`).
   // Add a listener for click events so that when a user clicks on a card, the headline of the article is logged to the console.
-  //
+  const card = document.querySelector('div');
+  const headline = document.querySelector('div');
+  const author = document.querySelector('div');
+  const imgContainer = document.querySelector('div');
+  const image = document.querySelector('img');
+  const authorName = document.querySelector('span');
+
+  card.classList.add('card');
+  headline.classList.add('headling');
+  author.classList.add('author');
+  imgContainer.classList.add('img-container');
+
+  headline.textContent = article.headline;
+  image.src = article.authorPhoto;
+  authorName.textContent = article.authorName;
+
+  card.appendChild(headline);
+  headline.appendChild(author);
+  author.appendChild(imgContainer);
+  imgContainer.appendChild(image);
+
   // <div class="card">
   //   <div class="headline">{ headline }</div>
   //   <div class="author">
