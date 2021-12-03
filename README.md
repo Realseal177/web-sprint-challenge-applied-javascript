@@ -60,7 +60,12 @@ In meeting the minimum viable product (MVP) specifications listed below, your pr
 Demonstrate your understanding of this week's concepts by answering the following questions:
 
 1. What is the DOM?
+It's used to create an HTML tree in JS and insert it into the webpage. Useful for creating mass amounts of the same feature frameworks without having to dry code each individual 
 2. What is an event?
+Typically described as anything that the user does while on the webpage, like pressing a key, clicking a button, hovering over something, etc.
 3. What is an event listener?
+A mechanism that allows a developer to attach a function or command to an event. It 'listens' for the event, like a click, then executes something when the event takes place.
 4. Why would we convert a NodeList into an Array?
+To access each piece of it and apply things to each piece of the HTML tree you built
 5. What is a component?
+Components are modular elements we add to the webpage by creating them in (preferably) JS. Rather than hardcoding something into the HTML doc every time we need something new, we can create functions that make the components, then plug them in when we need them 
