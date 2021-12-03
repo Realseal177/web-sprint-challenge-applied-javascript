@@ -30,7 +30,7 @@ const Tabs = (topics) => {
 const tabsAppender = (selector) => {
   axios.get('http://localhost:5000/api/topics')
     .then(resp => {
-      console.log(resp.data.topics);
+      // console.log(resp.data.topics);
       const array = resp.data.topics;
       const entryPoint = document.querySelector(selector)
       entryPoint.appendChild(Tabs(array))

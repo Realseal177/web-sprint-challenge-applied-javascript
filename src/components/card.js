@@ -1,3 +1,6 @@
+import axios from "axios";
+import { articles } from "../mocks/data";
+
 const Card = (article) => {
   // TASK 5
   // ---------------------
@@ -6,26 +9,31 @@ const Card = (article) => {
   // The tags used, the hierarchy of elements and their attributes must match the provided markup exactly!
   // The text inside elements will be set using their `textContent` property (NOT `innerText`).
   // Add a listener for click events so that when a user clicks on a card, the headline of the article is logged to the console.
-  const card = document.querySelector('div');
-  const headline = document.querySelector('div');
-  const author = document.querySelector('div');
-  const imgContainer = document.querySelector('div');
-  const image = document.querySelector('img');
-  const authorName = document.querySelector('span');
+  const divCard = document.createElement('div');
+  const divHeadline = document.createElement('div');
+  const divAuthor = document.createElement('div');
+  const imgContainer = document.createElement('div');
+  const imgImage = document.createElement('img');
+  const authorName = document.createElement('span');
 
-  card.classList.add('card');
-  headline.classList.add('headling');
-  author.classList.add('author');
+  divCard.classList.add('card');
+  divHeadline.classList.add('headline');
+  divAuthor.classList.add('author');
   imgContainer.classList.add('img-container');
 
-  headline.textContent = article.headline;
-  image.src = article.authorPhoto;
-  authorName.textContent = article.authorName;
+  divHeadline.textContent = article.headline;
+  authorName.textContent = `By ${article.authorName}`;
+  imgImage.src = article.authorPhoto;
 
-  card.appendChild(headline);
-  headline.appendChild(author);
-  author.appendChild(imgContainer);
-  imgContainer.appendChild(image);
+  divCard.appendChild(divHeadline);
+  divCard.appendChild(divAuthor);
+  divAuthor.appendChild(imgContainer);
+  divAuthor.appendChild(authorName);
+  imgContainer.appendChild(imgImage);
+
+  divCard.addEventListener('click', () => {
+    console.log(divHeadline.textContent);
+  });
 
   // <div class="card">
   //   <div class="headline">{ headline }</div>
@@ -36,7 +44,7 @@ const Card = (article) => {
   //     <span>By { authorName }</span>
   //   </div>
   // </div>
-  //
+  return divCard;
 }
 
 const cardAppender = (selector) => {
@@ -47,7 +55,21 @@ const cardAppender = (selector) => {
   // However, the articles do not come organized in a single, neat array. Inspect the response closely!
   // Create a card from each and every article object in the response, using the Card component.
   // Append each card to the element in the DOM that matches the selector passed to the function.
-  //
+  axios.get('http://localhost:5000/api/articles')
+    .then(resp => {
+      console.log(resp.data.articles);
+      const obj = resp.data.articles;
+      Object.keys(obj).forEach(key => {
+        for (let i = 0; i < obj[key].length; i++) {
+          const entryPoint = document.querySelector(selector)
+          entryPoint.appendChild(Card(obj[key][i]));
+        }
+      })
+    })
+    .catch(error => {
+      console.error(error)
+    })
+    .finally(() => console.log('6 is working too'))
 }
 
 export { Card, cardAppender }
