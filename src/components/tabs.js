@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const Tabs = (topics) => {
   // TASK 3
   // ---------------------
@@ -6,23 +8,51 @@ const Tabs = (topics) => {
   // then the function returns the markup below.
   // The tags used, the hierarchy of elements and their attributes must match the provided markup!
   // The text inside elements will be set using their `textContent` property (NOT `innerText`).
-  //
-  // <div class="topics">
-  //   <div class="tab">javascript</div>
-  //   <div class="tab">bootstrap</div>
-  //   <div class="tab">technology</div>
-  // </div>
-  //
+  const divTopics = document.createElement('div');
+  const topicOne = document.createElement('tab');
+  const topicTwo = document.createElement('tab');
+  const topicThree = document.createElement('tab');
+
+  divTopics.appendChild(topicOne);
+  divTopics.appendChild(topicTwo);
+  divTopics.appendChild(topicThree);
+
+  divTopics.classList.add('topics');
+  topicOne.classList.add('tab');
+  topicTwo.classList.add('tab');
+  topicThree.classList.add('tab');
+
+
+
+  // // <div class="topics">
+  // //   <div class="tab">javascript</div>
+  // //   <div class="tab">bootstrap</div>
+  // //   <div class="tab">technology</div>
+  // // </div>
+  // //
+  return divTopics;
 }
 
 const tabsAppender = (selector) => {
-  // TASK 4
-  // ---------------------
-  // Implement this function which takes a css selector as its only argument.
-  // It should obtain topics from this endpoint: `http://localhost:5000/api/topics` (test it with a console.log!).
-  // Find the array of topics inside the response, and create the tabs using the Tabs component.
-  // Append the tabs to the element in the DOM that matches the selector passed to the function.
-  //
+  axios.get('http://localhost:5000/api/topics')
+    .then(resp => {
+      console.log(resp.data.topics);
+      const array = rest.data.topics;
+      const entryPoint = document.querySelector(selector)
+      entryPoint.appendChild(Tabs(array))
+    })
+    .catch(error => {
+      console.error(error);
+    }).finally(() => console.log('It works!!'))
+  // // TASK 4
+  // // ---------------------
+  // // Implement this function which takes a css selector as its only argument.
+  // // It should obtain topics from this endpoint: `http://localhost:5000/api/topics` (test it with a console.log!).
+  // // Find the array of topics inside the response, and create the tabs using the Tabs component.
+  // // Append the tabs to the element in the DOM that matches the selector passed to the function.
+  const newTabs = Tabs();
+  document.querySelector(selector).appendChild(newTabs);
+
 }
 
 export { Tabs, tabsAppender }
